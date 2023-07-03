@@ -4,10 +4,20 @@ import {TextInput} from '../../../components/TextInput/TextInput';
 import {Button} from '../../../components/Button/Button';
 import {Screen} from '../../../components/Screen/Screen';
 import {PasswordInput} from '../../../components/PasswordInput/PasswordInput';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../../routes/Routes';
 
-export function LoginScreen() {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>;
+export function LoginScreen({navigation}: ScreenProps) {
+  function navigateToSignUpScreen() {
+    navigation.navigate('SignUpScreen');
+  }
+
+  function navigationToForgotPasswordScreen() {
+    navigation.navigate('ForgotPasswordScreen');
+  }
   return (
-    <Screen>
+    <Screen scrollable>
       <Text marginBottom="s8" preset="headingLarge">
         Olá!
       </Text>
@@ -15,7 +25,6 @@ export function LoginScreen() {
         Digite seu e-mail e senha para entrar
       </Text>
       <TextInput
-        errorMessage="mensagem de erro"
         label="E-mail"
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
@@ -27,11 +36,20 @@ export function LoginScreen() {
         boxProps={{mb: 's10'}}
       />
 
-      <Text color="primary" preset="paragraphSmall" bold>
+      <Text
+        onPress={navigationToForgotPasswordScreen}
+        color="primary"
+        preset="paragraphSmall"
+        bold>
         Esqueci minha senha
       </Text>
       <Button title="Entrar" mt="s48" />
-      <Button preset="outline" title="Criar uma conta" mt="s12" />
+      <Button
+        preset="outline"
+        title="Criar uma conta"
+        mt="s12"
+        onPress={navigateToSignUpScreen}
+      />
     </Screen>
   );
 }
