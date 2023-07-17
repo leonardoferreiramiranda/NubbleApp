@@ -1,19 +1,21 @@
 import React from 'react';
 import {TextStyle} from 'react-native';
+
 import {createText} from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
+
+import {Theme} from '@theme';
 
 const SRText = createText<Theme>();
 type SRTextProps = React.ComponentProps<typeof SRText>;
 
-interface TextProps extends SRTextProps {
+export interface TextProps extends SRTextProps {
   preset?: TextVariants;
   bold?: boolean;
   italic?: boolean;
   semiBold?: boolean;
 }
 
-const Text = ({
+export function Text({
   children,
   preset = 'paragraphMedium',
   bold,
@@ -21,7 +23,7 @@ const Text = ({
   semiBold,
   style,
   ...sRTextProps
-}: TextProps) => {
+}: TextProps) {
   const fontFamily = getFontFamily(preset, bold, italic, semiBold);
   return (
     <SRText
@@ -31,7 +33,7 @@ const Text = ({
       {children}
     </SRText>
   );
-};
+}
 
 function getFontFamily(
   preset: TextVariants,
@@ -97,5 +99,3 @@ export const $fontFamily = {
   mediumItalic: 'Satoshi-MediumItalic',
   regular: 'Satoshi-Regular',
 };
-
-export default Text;
