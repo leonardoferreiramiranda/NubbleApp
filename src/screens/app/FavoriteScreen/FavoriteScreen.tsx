@@ -4,10 +4,10 @@ import {Screen, Text} from '@components';
 import {AppTabScreenProps} from '@routes';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function MyProfileScreen(props: AppTabScreenProps<'MyProfileScreen'>) {
+export function FavoriteScreen(props: AppTabScreenProps<'FavoriteScreen'>) {
   return (
     <Screen>
-      <Text preset="headingLarge">My Profile Screen</Text>
+      <Text preset="headingLarge">Favorite Screen</Text>
     </Screen>
   );
 }
