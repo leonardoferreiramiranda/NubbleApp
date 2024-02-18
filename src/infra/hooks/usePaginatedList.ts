@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {Page} from '@types';
-
 export interface UsePaginatedListResult<TData> {
   list: TData[];
   isError: boolean | null;
@@ -12,17 +11,30 @@ export interface UsePaginatedListResult<TData> {
   hasNextPage: boolean;
 }
 
+interface PaginatedListOption {
+  /**
+   * Set this to `false` to disable automatic refetching when the query mounts or changes query keys.
+   */
+  enabled?: boolean;
+  /**
+   * The time in milliseconds after data is considered stale.
+   */
+  staleTime?: number;
+}
 export function usePaginatedList<Data>(
   queryKey: readonly unknown[],
   getList: (page: number) => Promise<Page<Data>>,
+  options?: PaginatedListOption,
 ): UsePaginatedListResult<Data> {
   const [list, setList] = useState<Data[]>([]);
 
   const query = useInfiniteQuery({
     queryKey,
-    queryFn: ({pageParam}) => getList(pageParam),
+    queryFn: ({pageParam = 1}) => getList(pageParam),
     getNextPageParam: ({meta}) =>
       meta.hasNextPage ? meta.currentPage + 1 : undefined,
+    enabled: options?.enabled,
+    staleTime: options?.staleTime,
   });
 
   useEffect(() => {
