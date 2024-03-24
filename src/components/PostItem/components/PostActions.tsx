@@ -60,7 +60,7 @@ function Item({onPress, icon, text, marked}: ItemProps) {
       alignItems="center"
       onPress={onPress}>
       <Icon
-        color={text > 0 && marked ? 'marked' : undefined}
+        color={text > 0 && marked ? 'market' : undefined}
         name={text > 0 && marked ? icon.marked : icon.default}
       />
       {text > 0 && (
