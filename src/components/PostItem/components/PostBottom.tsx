@@ -7,10 +7,13 @@ import {Box, Text} from '@components';
 
 interface Props {
   post: Post;
+  hideCommentAction?: boolean;
 }
-export function PostBottom({post}: Props) {
+export function PostBottom({post, hideCommentAction}: Props) {
   const navigation = useNavigation();
-  const commentText = getCommentText(post.commentCount);
+  const commentText = hideCommentAction
+    ? null
+    : getCommentText(post.commentCount);
 
   function navigateToPostCommentScreen() {
     navigation.navigate('PostCommentScreen', {
